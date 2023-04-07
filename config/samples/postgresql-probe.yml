@@ -1,0 +1,10 @@
+apiVersion: dteknoloji.com.tr/v1alpha1
+kind: Probe
+metadata:
+  name: postgresql-probe
+spec:
+  period: 3
+  description: postgresql probe
+  type: Postgresql
+  parameters: |
+    connectionString: "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=postgres;"

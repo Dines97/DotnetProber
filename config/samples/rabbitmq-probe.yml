@@ -1,0 +1,10 @@
+apiVersion: dteknoloji.com.tr/v1alpha1
+kind: Probe
+metadata:
+  name: rabbitmq-probe
+spec:
+  period: 3
+  description: rabbitmq probe
+  type: RabbitMq
+  parameters: |
+    connectionString: "amqp://localhost:5672"

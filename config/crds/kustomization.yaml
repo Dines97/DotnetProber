@@ -1,0 +1,6 @@
+commonLabels:
+  operator-element: crd
+resources:
+- probes_dteknoloji_com_tr.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
