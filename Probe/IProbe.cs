@@ -6,7 +6,7 @@ namespace Prober.Probe;
 
 public interface IProbe { }
 
-public interface IProbe<in T> : IProbe where T : IProbeParameters {
+public interface IProbe<in T> : IProbe where T : class, IProbeParameters {
   public IHealthCheck Reconcile(T parameters);
 
   public ValidationResult Validate(T parameters, bool dryRun);

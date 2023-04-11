@@ -7,28 +7,29 @@ using Prober.Probe;
 namespace Prober.Entities;
 
 [KubernetesEntity(Group = "dteknoloji.com.tr", ApiVersion = "v1alpha1", Kind = "Probe", PluralName = "probes")]
-public class V1Alpha1ProbeEntity : CustomKubernetesEntity<V1Alpha1ProbeEntity.V1Alpha1ProbeEntitySpec,
-  V1Alpha1ProbeEntity.V1Alpha1ProbeEntityStatus> {
-  public class V1Alpha1ProbeEntitySpec {
-    public string Description { get; set; } = string.Empty;
+public class V1Alpha1ProbeEntity : CustomKubernetesEntity<V1Alpha1ProbeEntitySpec, V1Alpha1ProbeEntityStatus> { }
 
-    public int Period { get; set; } = 1;
+public class V1Alpha1ProbeEntitySpec {
+  public string Description { get; set; } = string.Empty;
 
-    [AdditionalPrinterColumn(Name = "Probe type", Priority = 0)]
-    public ProbeType Type { get; set; }
+  public int Period { get; set; } = 1;
 
-    public string Parameters { get; set; }
-  }
+  [AdditionalPrinterColumn(Name = "Probe type", Priority = 0)]
+  public ProbeType Type { get; set; }
 
-  public class V1Alpha1ProbeEntityStatus {
-    [AdditionalPrinterColumn(Name = "Probe status", Priority = 0)]
-    public string Status { get; set; } = "0/0";
+  public string Parameters { get; set; }
+}
 
-    public NodeStatus[] NodeStatus { get; set; } = Array.Empty<NodeStatus>();
-  }
+public class V1Alpha1ProbeEntityStatus {
+  [AdditionalPrinterColumn(Name = "Probe status", Priority = 0)]
+  public string Status { get; set; } = "0/0";
+
+  public NodeStatus[] NodeStatus { get; set; } = Array.Empty<NodeStatus>();
 }
 
 public class NodeStatus {
   public string Name { get; set; }
   public string Status { get; set; } = "Unknown";
+
+  public string Timestamp { get; set; }
 }
