@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prober", "Prober\Prober.csproj", "{F355AF65-A59F-4EF2-B8A6-48C5E5712291}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F355AF65-A59F-4EF2-B8A6-48C5E5712291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F355AF65-A59F-4EF2-B8A6-48C5E5712291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F355AF65-A59F-4EF2-B8A6-48C5E5712291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F355AF65-A59F-4EF2-B8A6-48C5E5712291}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
