@@ -1,4 +1,4 @@
-apiVersion: dteknoloji.com.tr/v1alpha1
+apiVersion: d-teknoloji.com.tr/v1alpha1
 kind: Probe
 metadata:
   name: postgresql-probe

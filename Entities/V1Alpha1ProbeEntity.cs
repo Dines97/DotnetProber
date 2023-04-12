@@ -6,7 +6,7 @@ using Prober.Probe;
 
 namespace Prober.Entities;
 
-[KubernetesEntity(Group = "dteknoloji.com.tr", ApiVersion = "v1alpha1", Kind = "Probe", PluralName = "probes")]
+[KubernetesEntity(Group = "d-teknoloji.com.tr", ApiVersion = "v1alpha1", Kind = "Probe", PluralName = "probes")]
 public class V1Alpha1ProbeEntity : CustomKubernetesEntity<V1Alpha1ProbeEntitySpec, V1Alpha1ProbeEntityStatus> { }
 
 public class V1Alpha1ProbeEntitySpec {

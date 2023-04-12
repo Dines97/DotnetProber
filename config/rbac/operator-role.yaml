@@ -4,7 +4,7 @@ metadata:
   name: operator-role
 rules:
 - apiGroups:
-  - dteknoloji.com.tr
+  - d-teknoloji.com.tr
   resources:
   - probes
   verbs:
@@ -32,7 +32,7 @@ rules:
   - update
   - delete
 - apiGroups:
-  - dteknoloji.com.tr
+  - d-teknoloji.com.tr
   resources:
   - probes/status
   verbs:
