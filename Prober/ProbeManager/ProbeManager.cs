@@ -13,16 +13,25 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace Prober.ProbeManager;
 
 public class ProbeManager : IProbeManager {
+  private readonly IEnumerable<IProbe> _probes;
   private readonly ILogger<ProbeManager> _logger;
 
-  public ProbeManager(ILogger<ProbeManager> logger) {
+
+  public ProbeManager(IEnumerable<IProbe> probes, ILogger<ProbeManager> logger) {
+    _probes = probes;
     _logger = logger;
   }
-  
-  public async Task ReconciledAsync(V1Alpha1ProbeEntity entity) {
-    var map = entity.Spec.Type.GetProbe(entity.Spec.Parameters);
 
-    var healthCheck = map.probe.Reconcile(map.parameters);
+  public async Task ReconciledAsync(V1Alpha1ProbeEntity entity) {
+    var probe = _probes.SingleOrDefault(x => x.Check(entity.Spec.Type));
+    if (probe == null) {
+      _logger.LogInformation("Doesn't found probe that satisfies {}", entity.Spec.Type);
+      return;
+    }
+
+    probe.SetParameters(entity.Spec.Parameters);
+
+    var healthCheck = probe.Reconcile();
     var healthCheckResult = healthCheck.CheckHealthAsync(Utils.MockHealthCheckContext(healthCheck));
 
     var nodeName = Environment.GetEnvironmentVariable("NODE_NAME") ?? "unknown";

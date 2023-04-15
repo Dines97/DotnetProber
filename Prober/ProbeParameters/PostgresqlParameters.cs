@@ -1,5 +1,5 @@
 ﻿namespace Prober.ProbeParameters;
 
-public class PostgresqlParameters : IProbeParameters {
+public class PostgresqlParameters {
   public string? ConnectionString { get; set; }
 }

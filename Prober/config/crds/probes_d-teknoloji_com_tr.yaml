@@ -51,6 +51,7 @@ spec:
                 enum:
                 - RabbitMq
                 - Postgresql
+                - DnsProbe
                 type: string
               parameters:
                 type: string

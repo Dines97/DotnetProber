@@ -1,29 +1,38 @@
-using System.Runtime.Serialization;
-using System.Text.Json;
 using HealthChecks.RabbitMQ;
 using KubeOps.Operator.Webhooks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.ProbeParameters;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Prober.Probe;
 
-public class RabbitMqProbe : IProbe<IProbeParameters> {
-  public IHealthCheck Reconcile(IProbeParameters parameters) {
-    var p = (RabbitMqParameters)parameters;
+public class RabbitMqProbe : IProbe {
+  private readonly IDeserializer _deserializer;
+  private RabbitMqParameters _parameters = null!;
 
-    return new RabbitMQHealthCheck(new Uri(p.ConnectionString!), null);
+  public RabbitMqProbe(IDeserializer deserializer) {
+    _deserializer = deserializer;
   }
 
-  public ValidationResult Validate(IProbeParameters parameters, bool dryRun) {
-    var p = (RabbitMqParameters)parameters;
-    return string.IsNullOrEmpty(p.ConnectionString)
+  public bool Check(ProbeType probeType) {
+    return probeType == ProbeType.RabbitMq;
+  }
+
+  public void SetParameters(string parameters) {
+    _parameters = _deserializer.Deserialize<RabbitMqParameters>(parameters);
+  }
+
+  public IHealthCheck Reconcile() {
+    return new RabbitMQHealthCheck(new Uri(_parameters.ConnectionString!), null);
+  }
+
+  public ValidationResult Validate(bool dryRun) {
+    return string.IsNullOrEmpty(_parameters.ConnectionString)
       ? ValidationResult.Fail(StatusCodes.Status400BadRequest, "connectionString should be specified")
       : ValidationResult.Success();
   }
 
-  public MutationResult Mutate(IProbeParameters parameters, bool dryRun) {
+  public MutationResult Mutate(bool dryRun) {
     throw new NotImplementedException();
   }
 }

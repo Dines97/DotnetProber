@@ -2,24 +2,37 @@
 using KubeOps.Operator.Webhooks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.ProbeParameters;
+using YamlDotNet.Serialization;
 
 namespace Prober.Probe;
 
-public class PostgresqlProbe : IProbe<IProbeParameters> {
-  public IHealthCheck Reconcile(IProbeParameters parameters) {
-    var p = (PostgresqlParameters)parameters;
+public class PostgresqlProbe : IProbe {
+  private readonly IDeserializer _deserializer;
+  private PostgresqlParameters _parameters = null!;
 
-    return new NpgSqlHealthCheck(p.ConnectionString!, "SELECT 1;");
+  public PostgresqlProbe(IDeserializer deserializer) {
+    _deserializer = deserializer;
   }
 
-  public ValidationResult Validate(IProbeParameters parameters, bool dryRun) {
-    var p = (PostgresqlParameters)parameters;
-    return string.IsNullOrEmpty(p.ConnectionString)
+  public bool Check(ProbeType probeType) {
+    return probeType == ProbeType.Postgresql;
+  }
+
+  public void SetParameters(string parameters) {
+    _parameters = _deserializer.Deserialize<PostgresqlParameters>(parameters);
+  }
+
+  public IHealthCheck Reconcile() {
+    return new NpgSqlHealthCheck(_parameters.ConnectionString!, "SELECT 1;");
+  }
+
+  public ValidationResult Validate(bool dryRun) {
+    return string.IsNullOrEmpty(_parameters.ConnectionString)
       ? ValidationResult.Fail(StatusCodes.Status400BadRequest, "connectionString should be specified")
       : ValidationResult.Success();
   }
 
-  public MutationResult Mutate(IProbeParameters parameters, bool dryRun) {
+  public MutationResult Mutate(bool dryRun) {
     throw new NotImplementedException();
   }
 }

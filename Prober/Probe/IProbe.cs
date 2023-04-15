@@ -4,12 +4,14 @@ using Prober.ProbeParameters;
 
 namespace Prober.Probe;
 
-public interface IProbe { }
+public interface IProbe {
+  public bool Check(ProbeType probeType);
 
-public interface IProbe<in T> : IProbe where T : class, IProbeParameters {
-  public IHealthCheck Reconcile(T parameters);
+  void SetParameters(string parameters);
 
-  public ValidationResult Validate(T parameters, bool dryRun);
+  public IHealthCheck Reconcile();
 
-  public MutationResult Mutate(T parameters, bool dryRun);
+  public ValidationResult Validate(bool dryRun);
+
+  public MutationResult Mutate(bool dryRun);
 }

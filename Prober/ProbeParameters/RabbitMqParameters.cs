@@ -1,5 +1,5 @@
-﻿namespace Prober.ProbeParameters; 
+﻿namespace Prober.ProbeParameters;
 
-public class RabbitMqParameters : IProbeParameters {
+public class RabbitMqParameters {
   public string? ConnectionString { get; set; }
 }
