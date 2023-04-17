@@ -7,7 +7,7 @@ using Kubernetes CRD's
 
 ```shell
 git clone https://github.com/Dines97/DotnetProber
-kubectl apply -k DotnetProber/k8s/installer
+kubectl apply -k DotnetProber/k8s/install
 ```
 
 ## Usage
