@@ -8,7 +8,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddKubernetesOperator(x => { x.EnableLeaderElection = false; });
+builder.Services.AddKubernetesOperator(x => { x.EnableLeaderElection = true; });
 
 builder.Services.AddTransient<IProbeManager, ProbeManager>();
 builder.Services.AddSingleton<IDeserializer>(_ =>

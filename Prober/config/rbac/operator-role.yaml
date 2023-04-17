@@ -5,8 +5,10 @@ metadata:
 rules:
 - apiGroups:
   - d-teknoloji.com.tr
+  - coordination.k8s.io
   resources:
   - probes
+  - leases
   verbs:
   - '*'
 - apiGroups:
@@ -19,18 +21,12 @@ rules:
   - list
   - update
 - apiGroups:
-  - ""
-  - admissionregistration.k8s.io
+  - apps
   resources:
-  - services
-  - validatingwebhookconfigurations
-  - mutatingwebhookconfigurations
+  - deployments
   verbs:
-  - create
   - get
-  - patch
-  - update
-  - delete
+  - list
 - apiGroups:
   - d-teknoloji.com.tr
   resources:
@@ -40,9 +36,9 @@ rules:
   - patch
   - update
 - apiGroups:
-  - ""
+  - apps
   resources:
-  - services/status
+  - deployments/status
   verbs:
   - get
   - patch
