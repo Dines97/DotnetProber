@@ -1,12 +1,12 @@
 # Build the operator
-FROM mcr.microsoft.com/dotnet/sdk:7.0 as build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
 WORKDIR /operator
 
 COPY ./ ./
 RUN dotnet publish -c Release -o out Prober/Prober.csproj
 
 # The runner for the application
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 as final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as final
 
 RUN addgroup k8s-operator && useradd -G k8s-operator operator-user
 

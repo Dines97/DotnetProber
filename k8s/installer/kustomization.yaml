@@ -9,7 +9,7 @@ resources:
 - ../operator
 images:
 - name: operator
-  newName: public-docker-image-path
-  newTag: latest
+  newName: quay.io/dines/prober
+  newTag: e039a4f
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization

@@ -5,6 +5,11 @@ using Kubernetes CRD's
 
 ## Installation
 
+```shell
+git clone https://github.com/Dines97/DotnetProber
+kubectl apply -k DotnetProber/k8s/installer
+```
+
 ## Usage
 
 Create Probe usage with required Probe Type like
@@ -26,7 +31,7 @@ Than you can use kubectl to check connection to different services on which appl
 dependent
 
 ```shell
-➜ kubectl get probes.d-teknoloji.com.tr
+$ kubectl get probes.d-teknoloji.com.tr
 NAME             PROBE STATUS   PROBE TYPE
 rabbitmq-probe   1/1            RabbitMq
 ```
@@ -34,7 +39,7 @@ rabbitmq-probe   1/1            RabbitMq
 Or get more detailed status with node names and timestamp for each node
 
 ```shell
-➜ kubectl get probes.d-teknoloji.com.tr rabbitmq-probe -o jsonpath='{.status}'
+$ kubectl get probes.d-teknoloji.com.tr rabbitmq-probe -o jsonpath='{.status}'
 {"nodeStatus":[{"name":"unknown","status":"Healthy","timestamp":"2023-04-17T11:52:06.7702830+03:00"}],"status":"1/1"}
 ```
 
