@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.RegularExpressions;
 using k8s.Models;
 using KubeOps.KubernetesClient;
 using KubeOps.Operator.Controller;
@@ -46,7 +47,8 @@ public class V1Alpha1ProbeController : IResourceController<V1Alpha1ProbeEntity> 
     // HACK: Need to sleep after UpdateStatus or Reconcile will not be requeued
     Thread.Sleep(1000);
 
-    return ResourceControllerResult.RequeueEvent(TimeSpan.FromSeconds(10), ResourceEventType.Reconcile);
+
+    return ResourceControllerResult.RequeueEvent(Utils.ParseTimeSpan(entity.Spec.Period), ResourceEventType.Reconcile);
   }
 
   public Task StatusModifiedAsync(V1Alpha1ProbeEntity entity) {

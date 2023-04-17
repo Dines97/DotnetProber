@@ -1,0 +1,12 @@
+apiVersion: d-teknoloji.com.tr/v1alpha1
+kind: Probe
+metadata:
+  name: dns-resolution-probe
+spec:
+  period: 1m
+  description: Dns resolution probe
+  type: DnsResolve
+  parameters: |
+    host: d-teknoloji.com.tr
+    resolutions:
+    - "185.60.226.53"

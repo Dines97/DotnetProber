@@ -8,5 +8,5 @@ namespace Prober.Probe;
 public enum ProbeType {
   RabbitMq,
   Postgresql,
-  DnsProbe
+  DnsResolve
 }

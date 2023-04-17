@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddKubernetesOperator(x => { x.EnableLeaderElection = false; });
 
 builder.Services.AddTransient<IProbeManager, ProbeManager>();
-builder.Services.AddTransient<IDeserializer>(_ =>
+builder.Services.AddSingleton<IDeserializer>(_ =>
   new DeserializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build()
 );
 
@@ -28,7 +28,7 @@ builder.Services.AddControllers().AddJsonOptions(opts => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// builder.Services.AddHealthChecks().AddKubernetes();
+// builder.Services.AddHealthChecks().AddKubernetes().AddDnsResolveHealthCheck(x => x.ResolveHost().To());
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

@@ -3,7 +3,7 @@ kind: Probe
 metadata:
   name: rabbitmq-probe
 spec:
-  period: 3
+  period: 1m
   description: rabbitmq probe
   type: RabbitMq
   parameters: |

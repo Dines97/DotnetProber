@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using KubeOps.Operator.Webhooks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.ProbeParameters;
@@ -11,7 +13,7 @@ public interface IProbe {
 
   public IHealthCheck Reconcile();
 
-  public ValidationResult Validate(bool dryRun);
+  public ValidationResult Validate(bool dryRun) => ValidationResult.Success();
 
-  public MutationResult Mutate(bool dryRun);
+  public MutationResult Mutate(bool dryRun) => MutationResult.NoChanges();
 }

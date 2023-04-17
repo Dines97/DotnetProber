@@ -1,3 +1,6 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using k8s.Models;
 using KubeOps.Operator.Entities;
 using KubeOps.Operator.Entities.Annotations;
@@ -12,7 +15,9 @@ public class V1Alpha1ProbeEntity : CustomKubernetesEntity<V1Alpha1ProbeEntitySpe
 public class V1Alpha1ProbeEntitySpec {
   public string Description { get; set; } = string.Empty;
 
-  public int Period { get; set; } = 1;
+  public string Period { get; set; } = "30s";
+
+  public string Timeout { get; set; } = "5s";
 
   [AdditionalPrinterColumn(Name = "Probe type", Priority = 0)]
   public ProbeType Type { get; set; }

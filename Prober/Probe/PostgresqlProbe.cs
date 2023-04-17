@@ -1,4 +1,5 @@
-﻿using HealthChecks.NpgSql;
+﻿using System.Text.Json;
+using HealthChecks.NpgSql;
 using KubeOps.Operator.Webhooks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.ProbeParameters;
@@ -30,9 +31,5 @@ public class PostgresqlProbe : IProbe {
     return string.IsNullOrEmpty(_parameters.ConnectionString)
       ? ValidationResult.Fail(StatusCodes.Status400BadRequest, "connectionString should be specified")
       : ValidationResult.Success();
-  }
-
-  public MutationResult Mutate(bool dryRun) {
-    throw new NotImplementedException();
   }
 }

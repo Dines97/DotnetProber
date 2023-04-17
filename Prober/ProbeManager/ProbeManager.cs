@@ -47,7 +47,7 @@ public class ProbeManager : IProbeManager {
     }
 
     nodeStatus.Status = (await healthCheckResult).Status.ToString();
-    nodeStatus.Timestamp = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+    nodeStatus.Timestamp = DateTime.Now.ToString("O", CultureInfo.InvariantCulture);
 
     var allStatus = entity.Status.NodeStatus.Length;
     var healthyStatus = entity.Status.NodeStatus.Count(x => x.Status == "Healthy");

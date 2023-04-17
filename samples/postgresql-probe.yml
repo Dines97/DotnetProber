@@ -3,7 +3,7 @@ kind: Probe
 metadata:
   name: postgresql-probe
 spec:
-  period: 3
+  period: 15s
   description: postgresql probe
   type: Postgresql
   parameters: |
