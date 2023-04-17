@@ -1,7 +1,4 @@
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using HealthChecks.Network;
-using KubeOps.Operator.Webhooks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.ProbeParameters;
 using YamlDotNet.Serialization;
@@ -22,7 +19,7 @@ public class DnsProbe : IProbe {
   }
 
   public void SetParameters(string parameters) {
-    throw new NotImplementedException();
+    _parameters = _deserializer.Deserialize<DnsParameters>(parameters);
   }
 
   public IHealthCheck Reconcile() {
