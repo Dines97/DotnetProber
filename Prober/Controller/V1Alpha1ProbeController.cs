@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Text.RegularExpressions;
 using k8s.Models;
 using KubeOps.KubernetesClient;
 using KubeOps.Operator.Controller;
@@ -8,8 +6,6 @@ using KubeOps.Operator.Finalizer;
 using KubeOps.Operator.Kubernetes;
 using KubeOps.Operator.Rbac;
 using Prober.Entities;
-using Prober.Finalizer;
-using Prober.Probe;
 using Prober.ProbeManager;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -18,13 +14,14 @@ namespace Prober.Controller;
 
 [EntityRbac(typeof(V1Alpha1ProbeEntity), Verbs = RbacVerb.All)]
 public class V1Alpha1ProbeController : IResourceController<V1Alpha1ProbeEntity> {
-  private readonly ILogger<V1Alpha1ProbeController> _logger;
-  private readonly IFinalizerManager<V1Alpha1ProbeEntity> _finalizerManager;
   private readonly IKubernetesClient _client;
-  private readonly IProbeManager _probeManager;
 
   private readonly IDeserializer _deserializer =
     new DeserializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build();
+
+  private readonly IFinalizerManager<V1Alpha1ProbeEntity> _finalizerManager;
+  private readonly ILogger<V1Alpha1ProbeController> _logger;
+  private readonly IProbeManager _probeManager;
 
   public V1Alpha1ProbeController(ILogger<V1Alpha1ProbeController> logger,
     IFinalizerManager<V1Alpha1ProbeEntity> finalizerManager,
@@ -48,7 +45,8 @@ public class V1Alpha1ProbeController : IResourceController<V1Alpha1ProbeEntity> 
     Thread.Sleep(1000);
 
 
-    return ResourceControllerResult.RequeueEvent(Utils.ParseTimeSpan(entity.Spec.Period), ResourceEventType.Reconcile);
+    return ResourceControllerResult.RequeueEvent(Utils.Utils.ParseTimeSpan(entity.Spec.Period),
+      ResourceEventType.Reconcile);
   }
 
   public Task StatusModifiedAsync(V1Alpha1ProbeEntity entity) {

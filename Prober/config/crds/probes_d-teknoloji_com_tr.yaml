@@ -35,6 +35,8 @@ spec:
                       type: string
                     status:
                       type: string
+                    exception:
+                      type: string
                     timestamp:
                       type: string
                   type: object
@@ -50,9 +52,10 @@ spec:
                 type: string
               type:
                 enum:
-                - RabbitMq
+                  - RabbitMq
                 - Postgresql
                 - DnsResolve
+                  - UriRequestSize
                 type: string
               parameters:
                 type: string

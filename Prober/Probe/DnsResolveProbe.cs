@@ -5,11 +5,11 @@ using YamlDotNet.Serialization;
 
 namespace Prober.Probe;
 
-public class DnsProbe : IProbe {
+public class DnsResolveProbe : IProbe {
   private readonly IDeserializer _deserializer;
-  private DnsParameters _parameters = null!;
+  private DnsResolveParameters _parameters = null!;
 
-  public DnsProbe(IDeserializer deserializer) {
+  public DnsResolveProbe(IDeserializer deserializer) {
     _deserializer = deserializer;
   }
 
@@ -19,7 +19,7 @@ public class DnsProbe : IProbe {
   }
 
   public void SetParameters(string parameters) {
-    _parameters = _deserializer.Deserialize<DnsParameters>(parameters);
+    _parameters = _deserializer.Deserialize<DnsResolveParameters>(parameters);
   }
 
   public IHealthCheck Reconcile() {

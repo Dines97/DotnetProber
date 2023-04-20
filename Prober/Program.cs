@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using AutoMapper;
 using KubeOps.Operator;
 using Prober;
 using Prober.Probe;
@@ -17,8 +16,8 @@ builder.Services.AddSingleton<IDeserializer>(_ =>
 
 builder.Services.AddTransient<IProbe, RabbitMqProbe>();
 builder.Services.AddTransient<IProbe, PostgresqlProbe>();
-builder.Services.AddTransient<IProbe, DnsProbe>();
-
+builder.Services.AddTransient<IProbe, DnsResolveProbe>();
+builder.Services.AddTransient<IProbe, UriRequestSizeProbe>();
 
 builder.Services.AddControllers().AddJsonOptions(opts => {
   var enumConverter = new JsonStringEnumConverter();
@@ -27,8 +26,6 @@ builder.Services.AddControllers().AddJsonOptions(opts => {
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// builder.Services.AddHealthChecks().AddKubernetes().AddDnsResolveHealthCheck(x => x.ResolveHost().To());
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

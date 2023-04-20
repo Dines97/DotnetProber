@@ -1,10 +1,6 @@
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 using k8s.Models;
 using KubeOps.Operator.Entities;
 using KubeOps.Operator.Entities.Annotations;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.Probe;
 
 namespace Prober.Entities;
@@ -35,6 +31,8 @@ public class V1Alpha1ProbeEntityStatus {
 public class NodeStatus {
   public string Name { get; set; }
   public string Status { get; set; } = "Unknown";
+
+  public string Exception { get; set; } = string.Empty;
 
   public string Timestamp { get; set; }
 }

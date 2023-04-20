@@ -1,20 +1,12 @@
 ﻿using System.Globalization;
-using k8s.Models;
-using KubeOps.KubernetesClient;
-using KubeOps.Operator.Controller.Results;
-using KubeOps.Operator.Finalizer;
-using KubeOps.Operator.Kubernetes;
-using Prober.Controller;
 using Prober.Entities;
 using Prober.Probe;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Prober.ProbeManager;
 
 public class ProbeManager : IProbeManager {
-  private readonly IEnumerable<IProbe> _probes;
   private readonly ILogger<ProbeManager> _logger;
+  private readonly IEnumerable<IProbe> _probes;
 
 
   public ProbeManager(IEnumerable<IProbe> probes, ILogger<ProbeManager> logger) {
@@ -32,7 +24,7 @@ public class ProbeManager : IProbeManager {
     probe.SetParameters(entity.Spec.Parameters);
 
     var healthCheck = probe.Reconcile();
-    var healthCheckResult = healthCheck.CheckHealthAsync(Utils.MockHealthCheckContext(healthCheck));
+    var healthCheckResult = healthCheck.CheckHealthAsync(Utils.Utils.MockHealthCheckContext(healthCheck));
 
     var nodeName = Environment.GetEnvironmentVariable("NODE_NAME") ?? "unknown";
 
@@ -47,6 +39,7 @@ public class ProbeManager : IProbeManager {
     }
 
     nodeStatus.Status = (await healthCheckResult).Status.ToString();
+    nodeStatus.Exception = healthCheckResult.Exception?.Message ?? string.Empty;
     nodeStatus.Timestamp = DateTime.Now.ToString("O", CultureInfo.InvariantCulture);
 
     var allStatus = entity.Status.NodeStatus.Length;

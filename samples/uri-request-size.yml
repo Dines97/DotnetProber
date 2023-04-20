@@ -1,0 +1,13 @@
+apiVersion: d-teknoloji.com.tr/v1alpha1
+kind: Probe
+metadata:
+  name: dns-resolution-probe
+spec:
+  period: 3s
+  description: Dns resolution probe
+  type: UriRequestSize
+  parameters: |
+    uri: https://d-teknoloji.com.tr
+    httpMethod: GET
+    httpCode: 200
+    requestSize: 1k
