@@ -35,6 +35,8 @@ spec:
                       type: string
                     status:
                       type: string
+                    exception:
+                      type: string
                     timestamp:
                       type: string
                   type: object
@@ -53,6 +55,7 @@ spec:
                 - RabbitMq
                 - Postgresql
                 - DnsResolve
+                - UriRequestSize
                 type: string
               parameters:
                 type: string
