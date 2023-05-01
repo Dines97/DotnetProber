@@ -10,11 +10,6 @@ public static class Utils {
       { "m", x => TimeSpan.FromMinutes(x) }
     };
 
-  private static readonly IList<string> SI = new List<string> {
-    "k", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q"
-  };
-
-
   private static readonly Regex quantityRegex = new(@"^(\d+)(\D*)$", RegexOptions.Compiled);
 
   public static bool TryQuantityRegexSplit(string input, out string[]? output) {
@@ -46,6 +41,11 @@ public static class Utils {
     TimeQuantityMap.TryGetValue(match.Groups[2].Value, out var timeSpanFunction);
 
     return timeSpanFunction?.Invoke(int.Parse(match.Groups[1].Value)) ?? TimeSpan.FromSeconds(30);
+  }
+
+  public static bool CompareDictionary<TKey, TValue>(IDictionary<TKey, TValue> left, IDictionary<TKey, TValue> right)
+    where TValue : IEquatable<TValue> {
+    return left.Keys.All(key => right.ContainsKey(key) && right[key].Equals(left[key]));
   }
 
   // public static TimeSpan ParseSize(string value) {

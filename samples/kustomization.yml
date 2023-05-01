@@ -1,0 +1,5 @@
+resources:
+  - dns-resolution-probe.yml
+  - postgresql-probe.yml
+  - rabbitmq-probe.yml
+  - uri-request-size.yml

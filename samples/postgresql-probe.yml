@@ -2,6 +2,9 @@ apiVersion: d-teknoloji.com.tr/v1alpha1
 kind: Probe
 metadata:
   name: postgresql-probe
+  labels:
+    app: alpha-app
+    db: alpha-db
 spec:
   period: 15s
   description: postgresql probe

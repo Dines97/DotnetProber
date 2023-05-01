@@ -2,6 +2,8 @@ apiVersion: d-teknoloji.com.tr/v1alpha1
 kind: Probe
 metadata:
   name: rabbitmq-probe
+  labels:
+    app: beta-app
 spec:
   period: 1m
   description: rabbitmq probe

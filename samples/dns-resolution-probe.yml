@@ -2,6 +2,8 @@ apiVersion: d-teknoloji.com.tr/v1alpha1
 kind: Probe
 metadata:
   name: dns-resolution-probe
+  labels:
+    app: delta-app
 spec:
   period: 1m
   description: Dns resolution probe

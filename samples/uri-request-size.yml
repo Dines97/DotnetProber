@@ -1,10 +1,12 @@
 apiVersion: d-teknoloji.com.tr/v1alpha1
 kind: Probe
 metadata:
-  name: dns-resolution-probe
+  name: request-size-probe
+  labels:
+    app: alpha-app
 spec:
   period: 3s
-  description: Dns resolution probe
+  description: Request size probe
   type: UriRequestSize
   parameters: |
     uri: https://d-teknoloji.com.tr
