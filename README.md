@@ -33,14 +33,16 @@ dependent
 ```shell
 $ kubectl get probes.d-teknoloji.com.tr
 NAME             PROBE STATUS   PROBE TYPE
-rabbitmq-probe   1/1            RabbitMq
+rabbitmq-probe   0/2            RabbitMq
 ```
 
 Or get more detailed status with node names and timestamp for each node
 
 ```shell
-$ kubectl get probes.d-teknoloji.com.tr rabbitmq-probe -o jsonpath='{.status}'
-{"nodeStatus":[{"name":"unknown","status":"Healthy","timestamp":"2023-04-17T11:52:06.7702830+03:00"}],"status":"1/1"}
+$ kubectl get events --field-selector involvedObject.name=rabbitmq-probe
+LAST SEEN   TYPE      REASON      OBJECT                 MESSAGE
+52s         Warning   Reconcile   probe/rabbitmq-probe   Node: minikube-m02 | Status: Degraded | Exception: None of the specified endpoints were reachable
+60s         Warning   Reconcile   probe/rabbitmq-probe   Node: minikube | Status: Degraded | Exception: None of the specified endpoints were reachable
 ```
 
 ## Todo
