@@ -28,19 +28,6 @@ spec:
             properties:
               status:
                 type: string
-              nodeStatus:
-                items:
-                  properties:
-                    name:
-                      type: string
-                    status:
-                      type: string
-                    exception:
-                      type: string
-                    timestamp:
-                      type: string
-                  type: object
-                type: array
             type: object
           spec:
             properties:

@@ -1,11 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   labels:
     operator-deployment: prober
   name: operator
 spec:
-  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:

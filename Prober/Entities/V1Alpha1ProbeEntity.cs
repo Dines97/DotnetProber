@@ -24,15 +24,4 @@ public class V1Alpha1ProbeEntitySpec {
 public class V1Alpha1ProbeEntityStatus {
   [AdditionalPrinterColumn(Name = "Probe status", Priority = 0)]
   public string Status { get; set; } = "0/0";
-
-  public NodeStatus[] NodeStatus { get; set; } = Array.Empty<NodeStatus>();
-}
-
-public class NodeStatus {
-  public string Name { get; set; }
-  public string Status { get; set; } = "Unknown";
-
-  public string Exception { get; set; } = string.Empty;
-
-  public string Timestamp { get; set; }
 }
