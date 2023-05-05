@@ -49,4 +49,4 @@ LAST SEEN   TYPE      REASON      OBJECT                 MESSAGE
 
 ## Todo
 
-- [ ] Add support for running probes from different cluster nodes
+- [x] Add support for running probes from different cluster nodes
