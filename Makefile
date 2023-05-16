@@ -1,10 +1,12 @@
 PROJECT_ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-PROJECT = ${PROJECT_ROOT}/Prober/Prober.csproj
-DOTNET_RUN = dotnet DOTNET_RUN --project ${PROJECT}
+PROJECT := ${PROJECT_ROOT}/Prober/Prober.csproj
+DOTNET_RUN := dotnet run --project ${PROJECT}
 
 install: 
 	${DOTNET_RUN} -- install
+
+yaml: generate diff
 
 generate:
 	${DOTNET_RUN} -- generator docker --solution-dir .. --project-path ./Prober.csproj --target-file Prober.dll --dotnet-tag 6.0 -o Dockerfile

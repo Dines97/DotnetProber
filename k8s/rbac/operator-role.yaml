@@ -5,12 +5,14 @@ metadata:
 rules:
 - apiGroups:
   - d-teknoloji.com.tr
-  - coordination.k8s.io
   resources:
   - probes
-  - leases
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - patch
+  - update
 - apiGroups:
   - ""
   resources:
@@ -33,6 +35,12 @@ rules:
   - patch
   - update
   - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - '*'
 - apiGroups:
   - apps
   resources:
