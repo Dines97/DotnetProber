@@ -1,6 +1,6 @@
 PROJECT_ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-PROJECT = $(PROJECT_ROOT)/Prober/Prober.csproj
+PROJECT = ${PROJECT_ROOT}/Prober/Prober.csproj
 DOTNET_RUN = dotnet DOTNET_RUN --project ${PROJECT}
 
 install: 
@@ -14,11 +14,14 @@ generate:
 	${DOTNET_RUN} -- generator rbac -o ./config/rbac
 
 diff: 
-	-diff --color -r $(PROJECT_ROOT)/Prober/config $(PROJECT_ROOT)/k8s
+	-diff --color -r ${PROJECT_ROOT}/Prober/config ${PROJECT_ROOT}/k8s
 
 delete-webhooks:
 	kubectl delete validatingwebhookconfigurations validators.prober
 	kubectl delete mutatingwebhookconfigurations mutators.prober
 
 samples:
-	kubectl apply -k $(PROJECT_ROOT)/samples
+	kubectl apply -k ${PROJECT_ROOT}/samples
+
+k8s:
+	kubectl apply -k ${PROJECT_ROOT}/k8s/install
