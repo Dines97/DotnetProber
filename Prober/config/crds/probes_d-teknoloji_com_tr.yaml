@@ -39,10 +39,10 @@ spec:
                 type: string
               type:
                 enum:
-                  - RabbitMq
+                - RabbitMq
                 - Postgresql
                 - DnsResolve
-                  - UriRequestSize
+                - UriRequestSize
                 type: string
               parameters:
                 type: string

@@ -12,7 +12,8 @@ using Prober.ProbeManager;
 
 namespace Prober.Controller;
 
-[EntityRbac(typeof(V1Alpha1ProbeEntity), Verbs = RbacVerb.All)]
+[EntityRbac(typeof(V1Alpha1ProbeEntity),
+  Verbs = RbacVerb.Get | RbacVerb.List | RbacVerb.Watch | RbacVerb.Update | RbacVerb.Patch)]
 public class V1Alpha1ProbeController : IResourceController<V1Alpha1ProbeEntity> {
   private static LeaderState _leaderState;
   private readonly IKubernetesClient _client;

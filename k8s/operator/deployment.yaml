@@ -46,6 +46,14 @@ spec:
             port: http
           initialDelaySeconds: 15
           timeoutSeconds: 1
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 10000
+          runAsGroup: 10000
+          capabilities:
+            drop:
+            - ALL
         resources:
           limits:
             cpu: 100m
@@ -79,6 +87,21 @@ spec:
         - mountPath: /ca
           name: ca-certificates
           readOnly: true
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 10000
+          runAsGroup: 10000
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
       terminationGracePeriodSeconds: 10
       volumes:
       - emptyDir: {}

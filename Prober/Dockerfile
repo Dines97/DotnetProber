@@ -8,7 +8,7 @@ RUN dotnet publish -c Release -o out Prober/Prober.csproj
 # The runner for the application
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as final
 
-RUN addgroup k8s-operator && useradd -G k8s-operator operator-user
+RUN addgroup --gid 10000 k8s-operator && useradd --uid 10000 -G k8s-operator operator-user
 
 WORKDIR /operator
 COPY --from=build /operator/out/ ./

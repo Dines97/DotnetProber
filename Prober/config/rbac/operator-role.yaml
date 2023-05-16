@@ -3,64 +3,72 @@ kind: ClusterRole
 metadata:
   name: operator-role
 rules:
-  - apiGroups:
-      - d-teknoloji.com.tr
-      - coordination.k8s.io
-    resources:
-      - probes
-      - leases
-    verbs:
-      - '*'
-  - apiGroups:
-      - ""
-    resources:
-      - events
-    verbs:
-      - create
-      - get
-      - list
-      - update
-  - apiGroups:
-      - ""
-      - admissionregistration.k8s.io
-    resources:
-      - services
-      - validatingwebhookconfigurations
-      - mutatingwebhookconfigurations
-    verbs:
-      - create
-      - get
-      - patch
-      - update
-      - delete
-  - apiGroups:
-      - apps
-    resources:
-      - deployments
-    verbs:
-      - get
-      - list
-  - apiGroups:
-      - d-teknoloji.com.tr
-    resources:
-      - probes/status
-    verbs:
-      - get
-      - patch
-      - update
-  - apiGroups:
-      - ""
-    resources:
-      - services/status
-    verbs:
-      - get
-      - patch
-      - update
-  - apiGroups:
-      - apps
-    resources:
-      - deployments/status
-    verbs:
-      - get
-      - patch
-      - update
+- apiGroups:
+  - d-teknoloji.com.tr
+  resources:
+  - probes
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - get
+  - list
+  - update
+- apiGroups:
+  - ""
+  - admissionregistration.k8s.io
+  resources:
+  - services
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  verbs:
+  - create
+  - get
+  - patch
+  - update
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - d-teknoloji.com.tr
+  resources:
+  - probes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - services/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources:
+  - deployments/status
+  verbs:
+  - get
+  - patch
+  - update
