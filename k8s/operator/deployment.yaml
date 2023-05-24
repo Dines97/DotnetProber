@@ -14,7 +14,6 @@ spec:
       labels:
         operator: prober
     spec:
-      automountServiceAccountToken: false
       containers:
       - env:
         - name: POD_NAMESPACE
