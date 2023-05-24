@@ -27,3 +27,7 @@ samples:
 
 k8s:
 	kubectl apply -k ${PROJECT_ROOT}/k8s/install
+
+minikube:
+	minikube delete
+	minikube start

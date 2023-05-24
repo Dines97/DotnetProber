@@ -14,6 +14,7 @@ spec:
       labels:
         operator: prober
     spec:
+      automountServiceAccountToken: false
       containers:
       - env:
         - name: POD_NAMESPACE
@@ -47,6 +48,7 @@ spec:
           initialDelaySeconds: 15
           timeoutSeconds: 1
         securityContext:
+          readOnlyRootFilesystem: false
           allowPrivilegeEscalation: false
           runAsNonRoot: true
           runAsUser: 10000
@@ -88,6 +90,7 @@ spec:
           name: ca-certificates
           readOnly: true
         securityContext:
+          readOnlyRootFilesystem: false
           allowPrivilegeEscalation: false
           runAsNonRoot: true
           runAsUser: 10000

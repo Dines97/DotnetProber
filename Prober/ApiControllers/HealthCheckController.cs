@@ -19,14 +19,14 @@ public class HealthCheckController {
   }
 
   [HttpGet]
-  public async Task<IEnumerable<ProbeDto>> Healthcheck() {
+  public async Task<IEnumerable<ProbeDto>> All() {
     var probes = await _client.List<V1Alpha1ProbeEntity>();
 
     return _mapper.Map<IEnumerable<V1Alpha1ProbeEntity>, IEnumerable<ProbeDto>>(probes);
   }
 
   [HttpGet]
-  public async Task<IEnumerable<ProbeDto>> HealthCheckByLabels([FromQuery] Dictionary<string, string> labels) {
+  public async Task<IEnumerable<ProbeDto>> ByLabels([FromQuery] Dictionary<string, string> labels) {
     var allProbes = await _client.List<V1Alpha1ProbeEntity>();
 
     var suitableProbes = allProbes.Where(p => Utils.Utils.CompareDictionary(labels, p.Metadata.Labels)).ToList();
@@ -34,10 +34,29 @@ public class HealthCheckController {
     return _mapper.Map<IEnumerable<V1Alpha1ProbeEntity>, IEnumerable<ProbeDto>>(suitableProbes);
   }
 
+  [HttpGet("{namespace}")]
+  public async Task<IEnumerable<ProbeDto>> ByLabelsNamespaced([FromRoute] string @namespace,
+    [FromQuery] Dictionary<string, string> labels) {
+    var allProbes = await _client.List<V1Alpha1ProbeEntity>(@namespace);
+
+    var suitableProbes = allProbes.Where(p => Utils.Utils.CompareDictionary(labels, p.Metadata.Labels)).ToList();
+
+    return _mapper.Map<IEnumerable<V1Alpha1ProbeEntity>, IEnumerable<ProbeDto>>(suitableProbes);
+  }
 
   [HttpGet]
-  public async Task<IEnumerable<ProbeDto>> HealthChecksByType([FromQuery] ProbeType probeType) {
+  public async Task<IEnumerable<ProbeDto>> ByType([FromQuery] ProbeType probeType) {
     var allProbes = await _client.List<V1Alpha1ProbeEntity>();
+
+    var suitableProbes = allProbes.Where(p => p.Spec.Type == probeType).ToList();
+
+    return _mapper.Map<IEnumerable<V1Alpha1ProbeEntity>, IEnumerable<ProbeDto>>(suitableProbes);
+  }
+
+  [HttpGet("{namespace}")]
+  public async Task<IEnumerable<ProbeDto>> ByTypeNamespaced([FromRoute] string @namespace,
+    [FromQuery] ProbeType probeType) {
+    var allProbes = await _client.List<V1Alpha1ProbeEntity>(@namespace);
 
     var suitableProbes = allProbes.Where(p => p.Spec.Type == probeType).ToList();
 

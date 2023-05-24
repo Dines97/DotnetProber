@@ -3,3 +3,4 @@ resources:
   - postgresql-probe.yml
   - rabbitmq-probe.yml
   - uri-request-size.yml
+  - rabbitmq-app-namespace.yml
