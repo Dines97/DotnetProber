@@ -40,7 +40,7 @@ public class ProbeMutator : IMutationWebhook<V1Alpha1ProbeEntity> {
       };
     }
 
-    probe.SetParameters(newEntity.Spec.Parameters);
+    // probe.SetParameters(newEntity.Spec.Parameters);
     // return probe.Mutate(dryRun);
     return MutationResult.Modified(newEntity);
   }

@@ -9,8 +9,6 @@ namespace Prober.Entities;
 public class V1Alpha1ProbeEntity : CustomKubernetesEntity<V1Alpha1ProbeEntitySpec, V1Alpha1ProbeEntityStatus> { }
 
 public class V1Alpha1ProbeEntitySpec {
-  public string Description { get; set; } = string.Empty;
-
   public string Period { get; set; } = "30s";
 
   public string Timeout { get; set; } = "5s";
@@ -18,7 +16,43 @@ public class V1Alpha1ProbeEntitySpec {
   [AdditionalPrinterColumn(Name = "Probe type", Priority = 0)]
   public ProbeType Type { get; set; }
 
-  public string Parameters { get; set; }
+  public Source[] Source { get; set; }
+  public Destination Destination { get; set; }
+}
+
+public class Source {
+  public string Name { get; set; }
+  public ObjectType Type { get; set; }
+  public Key[] Keys { get; set; }
+}
+
+public enum ObjectType {
+  ConfigMap,
+  Secret
+}
+
+public class Key {
+  public string Name { get; set; }
+  public KeyType Type { get; set; }
+  public Dictionary<string, string> Variables { get; set; }
+}
+
+public enum KeyType {
+  Json,
+  Xml
+}
+
+public class Destination {
+  public ProbeParametersType Type { get; set; }
+  public Parameters Parameters { get; set; }
+}
+
+public enum ProbeParametersType {
+  ConnectionString
+}
+
+public class Parameters {
+  public string ConnectionString { get; set; }
 }
 
 public class V1Alpha1ProbeEntityStatus {

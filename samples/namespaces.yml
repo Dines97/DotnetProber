@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rabbitmq-app
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: configmap-namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: probe-namespace

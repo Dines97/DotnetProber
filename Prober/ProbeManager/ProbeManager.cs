@@ -9,6 +9,7 @@ using KubeOps.Operator.Events;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prober.Entities;
 using Prober.Probe;
+using Prober.Services.SourceProvider;
 using SimpleBase;
 
 namespace Prober.ProbeManager;
@@ -16,20 +17,20 @@ namespace Prober.ProbeManager;
 public class ProbeManager : IProbeManager {
   private readonly IKubernetesClient _client;
 
-
   private readonly IEventManager _eventManager;
   private readonly ILogger<ProbeManager> _logger;
   private readonly IEnumerable<IProbe> _probes;
   private readonly OperatorSettings _settings;
-
+  private readonly ISourceProviderService _sourceProviderService;
 
   public ProbeManager(IEnumerable<IProbe> probes, ILogger<ProbeManager> logger, IEventManager eventManager,
-    IKubernetesClient client, OperatorSettings settings) {
+    IKubernetesClient client, OperatorSettings settings, ISourceProviderService sourceProviderService) {
     _probes = probes;
     _logger = logger;
     _eventManager = eventManager;
     _client = client;
     _settings = settings;
+    _sourceProviderService = sourceProviderService;
   }
 
   public async Task ReconciledAsync(V1Alpha1ProbeEntity entity) {
@@ -39,8 +40,8 @@ public class ProbeManager : IProbeManager {
       return;
     }
 
-    probe.SetParameters(entity.Spec.Parameters);
-
+    // probe.SetParameters(entity.Spec.Parameters);
+    await _sourceProviderService.GetVariablesAsync(entity.Spec.Source, "default");
     var nodeName = Environment.GetEnvironmentVariable("NODE_NAME") ?? "unknown";
 
     var healthCheck = probe.Reconcile();

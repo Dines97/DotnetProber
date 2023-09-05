@@ -1,0 +1,23 @@
+apiVersion: d-teknoloji.com.tr/v1alpha1
+kind: Probe
+metadata:
+  name: postgresql-probe
+  namespace: probe-namespace
+  labels:
+    app: alpha-app
+    db: alpha-db
+spec:
+  period: 15s
+  type: Postgresql
+  source:
+  - name: configmap-namespace/app-configmap
+    type: ConfigMap
+    keys:
+    - name: appsettings.json
+      type: Json
+      variables:
+        DbHostFromConfigMap: /ConnectionString
+  destination:
+    type: ConnectionString
+    parameters:
+      connectionString: "User ID=postgres;Password=password;Host=${DbHostFromConfigMap};Port=5432;Database=postgres;"

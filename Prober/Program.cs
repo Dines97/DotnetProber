@@ -3,6 +3,7 @@ using KubeOps.Operator;
 using Prober;
 using Prober.Probe;
 using Prober.ProbeManager;
+using Prober.Services.SourceProvider;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -14,6 +15,7 @@ builder.Services.AddKubernetesOperator(x => {
 });
 
 builder.Services.AddTransient<IProbeManager, ProbeManager>();
+builder.Services.AddTransient<ISourceProviderService, SourceProviderService>();
 builder.Services.AddSingleton<IDeserializer>(_ =>
   new DeserializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build()
 );

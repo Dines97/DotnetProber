@@ -31,8 +31,6 @@ spec:
             type: object
           spec:
             properties:
-              description:
-                type: string
               period:
                 type: string
               timeout:
@@ -41,11 +39,49 @@ spec:
                 enum:
                 - RabbitMq
                 - Postgresql
-                - DnsResolve
                 - UriRequestSize
+                - Smtp
+                - DnsResolve
                 type: string
-              parameters:
-                type: string
+              source:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      enum:
+                      - ConfigMap
+                      - Secret
+                      type: string
+                    keys:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          type:
+                            enum:
+                            - Json
+                            - Xml
+                            type: string
+                          variables:
+                            type: object
+                            x-kubernetes-preserve-unknown-fields: true
+                        type: object
+                      type: array
+                  type: object
+                type: array
+              destination:
+                properties:
+                  type:
+                    enum:
+                    - ConnectionString
+                    type: string
+                  parameters:
+                    properties:
+                      connectionString:
+                        type: string
+                    type: object
+                type: object
             type: object
         type: object
     served: true

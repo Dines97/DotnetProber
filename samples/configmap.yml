@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  namespace: configmap-namespace
+data:
+  appsettings.json: |
+    {
+      "ConnectionString": "DB"
+    }
+  log.properties: |
+    log.level=info
+    log.filepath=/var/log/myapp.log
